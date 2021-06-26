@@ -50,3 +50,9 @@ variable "map_users" {
     },
   ]
 }
+
+variable "cluster_node_groups_name" {
+  description = "Set to avoid a cluster rebuild on clusters built with an old version of this module. Do not use on clusters built with version 1.17+ of this module."
+  type        = string
+  default     = null
+}

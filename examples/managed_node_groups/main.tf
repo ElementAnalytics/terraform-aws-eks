@@ -74,6 +74,16 @@ module "eks" {
 
   node_groups = {
     example = {
+      # In version 1.17 of this module, the way that node group names are
+      # managed changed. As a result, this name attribute is required for
+      # existing clusters to avoid requiring a destroy/rebuild when upgrading
+      # to 1.17+. However, new clusters built with 1.17+ will want to omit this
+      # name attribute to allow the default name logic to be used.
+      #
+      # We can handle this by taking advantage of the fact that setting an
+      # attribute to "null" in terraform is functionally equivalent to omitting
+      # the attribute entirely.
+      name             = var.cluster_node_groups_name
       desired_capacity = 1
       max_capacity     = 10
       min_capacity     = 1
